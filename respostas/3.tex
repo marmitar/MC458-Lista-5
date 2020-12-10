@@ -1,34 +1,45 @@
-\begin{codebox}
-    \Procname{$\proc{Custo-Mínimo}(t, n)$}
-    \li Seja $C[1 \twodots n]$ um novo vetor.
-    \li Seja $P[1 \twodots n - 1]$ um novo vetor.
-    \li
-    \li $C[n] \gets 0$
-    \li \kw{para} $i = n - 1$ descendo \kw{até} $1$
-        \Do
-    \li     $\id{cmin} \gets +\infty$
-    \li     $\id{idmin} \gets -1$
-    \li     \kw{para} $j = i + 1$ \kw{até} $n$
-            \Do
-    \li         $\id{custo} \gets t[i][j] + C[j]$
-    \li         \kw{se} $\id{custo} < \id{cmin}$
-                \Then
-    \li             $\id{cmin} \gets \id{custo}$
-    \li             $\id{idmin} \gets \id{j}$
-                \End
-            \End
-    \li     $C[i] \gets \id{cmin}$
-    \li     $P[i] \gets \id{idmin}$
-        \End
-    \li
-    \li $\id{fim} = 0$
-    \li $i = 1$
-    \li \kw{enquanto} $i < n$
-        \Do
-    \li     $i \gets P[i]$
-    \li     $\id{fim} \gets \id{fim} + 1$
-    \li     $P[\id{fim}] \gets i$
-        \End
-    \li
-    \li \kw{retorna} $P[1 \twodots \id{fim}]$
-\end{codebox}
+Para conseguir a sequência de aldeias, podemos guardar os índices que minimizam o cálculo do custo, dado pela recorrência do item \hyperref[sec:2:a]{2a)}. Assim, teremos um vetor $P$ de tamanho $n$ onde $C_i = t_{i, P_i} + C_{P_i}$, ou seja, $P_i$ é o índice da próxima aldeia no caminho ótimo partindo de $A_i$.
+
+Na prática, esse índice poderia ser acumulado em uma variável $pmin$ assim como $cmin$ (linha \ref{linha:a2:1}), sendo trocado sempre que $cmin$ fosse atualizado (linha \ref{linha:a3:2}). Ou seja, teríamos uma nova linha com $\mlq\mlq pmin \gets j \;\mrq\mrq$ se $custo < cmin$, mantendo a invariante de que
+\[
+    cmin = \min_{i < k \leq j} \left\{t_{i, k} + C_k\right\} = t_{i, pmin} + C_{pmin}
+\]
+Ao final do laço da linha \ref{linha:for:2}, teremos então que $P_i = pmin$, além de $C_i = cmin$, como já acontecia na linha \ref{linha:a2:2}.
+
+Com esse vetor $P$, podemos montar o caminho ótimo $M$ partindo de $A_1$. Assim, teremos $M_1 = P_1$ e $M_{i + 1} = P_{M_i}$, até encontrar um valor final $1 \leq f \leq n$ em que $M_f = n$, ou seja, a última aldeia. Esse caminho $M$ de tamanho $f$ seria o resultado do algoritmo.
+
+% \begin{codebox}
+%     \Procname{$\proc{Custo-Mínimo}(t, n)$}
+%     \li Seja $C[1 \twodots n]$ um novo vetor.
+%     \li Seja $P[1 \twodots n - 1]$ um novo vetor.
+%     \li
+%     \li $C[n] \gets 0$
+%     \li \kw{para} $i = n - 1$ descendo \kw{até} $1$
+%         \Do
+%     \li     $\id{cmin} \gets +\infty$
+%     \li     $\id{idmin} \gets -1$
+%     \li     \kw{para} $j = i + 1$ \kw{até} $n$
+%             \Do
+%     \li         $\id{custo} \gets t[i][j] + C[j]$
+%     \li         \kw{se} $\id{custo} < \id{cmin}$
+%                 \Then
+%     \li             $\id{cmin} \gets \id{custo}$
+%     \li             $\id{idmin} \gets \id{j}$
+%                 \End
+%             \End
+%     \li     $C[i] \gets \id{cmin}$
+%     \li     $P[i] \gets \id{idmin}$
+%         \End
+%     \li
+%     \li $\id{fim} = 0$
+%     \li $i = 1$
+%     \li \kw{enquanto} $i < n$
+%         \Do
+%     \li     $i \gets P[i]$
+%     \li     $\id{fim} \gets \id{fim} + 1$
+%     \li     $P[\id{fim}] \gets i$
+%     \li     $i \gets i + 1$
+%         \End
+%     \li
+%     \li \kw{retorna} $P[1 \twodots \id{fim}]$
+% \end{codebox}
