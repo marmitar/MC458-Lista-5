@@ -1,1 +1,34 @@
-~
+\begin{codebox}
+    \Procname{$\proc{Custo-Mínimo}(t, n)$}
+    \li Seja $C[1 \twodots n]$ um novo vetor.
+    \li Seja $P[1 \twodots n - 1]$ um novo vetor.
+    \li
+    \li $C[n] \gets 0$
+    \li \kw{para} $i = n - 1$ descendo \kw{até} $1$
+        \Do
+    \li     $\id{cmin} \gets +\infty$
+    \li     $\id{idmin} \gets -1$
+    \li     \kw{para} $j = i + 1$ \kw{até} $n$
+            \Do
+    \li         $\id{custo} \gets t[i][j] + C[j]$
+    \li         \kw{se} $\id{custo} < \id{cmin}$
+                \Then
+    \li             $\id{cmin} \gets \id{custo}$
+    \li             $\id{idmin} \gets \id{j}$
+                \End
+            \End
+    \li     $C[i] \gets \id{cmin}$
+    \li     $P[i] \gets \id{idmin}$
+        \End
+    \li
+    \li $\id{fim} = 0$
+    \li $i = 1$
+    \li \kw{enquanto} $i < n$
+        \Do
+    \li     $i \gets P[i]$
+    \li     $\id{fim} \gets \id{fim} + 1$
+    \li     $P[\id{fim}] \gets i$
+        \End
+    \li
+    \li \kw{retorna} $P[1 \twodots \id{fim}]$
+\end{codebox}
