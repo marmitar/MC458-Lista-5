@@ -1,1 +1,19 @@
-~
+\subsection{b}
+
+\begin{codebox}
+    \Procname{$\proc{Custo-Mínimo}(t, n)$}
+    \li Seja $c[1 \twodots n - 1]$ um novo vetor.
+    \li
+    \li \kw{para} $i = n - 1$ descendo \kw{até} $1$
+        \Do
+    \li     $\id{cmin} \gets t[i][n]$
+    \li     \kw{para} $j = i + 1$ \kw{até} $n - 1$
+            \Do
+    \li         $\id{custo} \gets t[i][j] + c[j]$
+    \li         $\id{cmin} \gets \min\left\{\id{cmin},\, \id{custo}\right\}$
+            \End
+    \li     $c[i] \gets \id{cmin}$
+        \End
+    \li
+    \li \kw{retorna} $c[1]$
+\end{codebox}
