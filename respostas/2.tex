@@ -1,19 +1,41 @@
+\subsection{a}
+
+\begin{align*}
+    C_i &= \min_{i < j \leq n}\left\{t_{i, j} + C_j\right\} \\
+    C_n &= 0
+\end{align*}
+
 \subsection{b}
 
 \begin{codebox}
     \Procname{$\proc{Custo-Mínimo}(t, n)$}
-    \li Seja $c[1 \twodots n - 1]$ um novo vetor.
+    \li Seja $C[1 \twodots n]$ um novo vetor.
     \li
+    \li $C[n] \gets 0$
     \li \kw{para} $i = n - 1$ descendo \kw{até} $1$
         \Do
-    \li     $\id{cmin} \gets t[i][n]$
-    \li     \kw{para} $j = i + 1$ \kw{até} $n - 1$
+    \li     $\id{cmin} \gets +\infty$
+    \li     \kw{para} $j = i + 1$ \kw{até} $n$
             \Do
-    \li         $\id{custo} \gets t[i][j] + c[j]$
-    \li         $\id{cmin} \gets \min\left\{\id{cmin},\, \id{custo}\right\}$
+    \li         $\id{custo} \gets t[i][j] + C[j]$
+    \li         $\id{cmin} \gets \min\left(\id{cmin},\, \id{custo}\right)$
             \End
-    \li     $c[i] \gets \id{cmin}$
+    \li     $C[i] \gets \id{cmin}$
         \End
     \li
-    \li \kw{retorna} $c[1]$
+    \li \kw{retorna} $C[1]$
 \end{codebox}
+
+\subsection{c}
+
+\begin{align*}
+    T(n) &= b + \sum_{i = 1}^{n - 1} \sum_{j = i + 1}^n a \\
+    &= b + a \sum_{i = 1}^{n - 1} n - a \sum_{i = 1}^{n - 1} i + a \sum_{i = 1}^{n - 1} 1 \\
+    &= b + a n (n - 1) - a \frac{n (n - 1)}{2} + a (n - 1) \\
+    &= \frac{a}{2} n^2 + \frac{a}{2} n - a + b \\
+    &\in \Theta\left(n^2\right)
+\end{align*}
+
+\begin{align*}
+    E(n) &= n + \Theta(1) = \Theta(n)
+\end{align*}
