@@ -30,9 +30,9 @@
 
 \begin{align*}
     T(n) &= b + \sum_{i = 1}^{n - 1} \sum_{j = i + 1}^n a \\
-    &= b + a \sum_{i = 1}^{n - 1} n - a \sum_{i = 1}^{n - 1} i + a \sum_{i = 1}^{n - 1} 1 \\
-    &= b + a n (n - 1) - a \frac{n (n - 1)}{2} + a (n - 1) \\
-    &= \frac{a}{2} n^2 + \frac{a}{2} n - a + b \\
+    &= b + a \sum_{i = 1}^{n - 1} n - a \sum_{i = 1}^{n - 1} i \\
+    &= b + a n (n - 1) - a \frac{n (n - 1)}{2} \\
+    &= \frac{a}{2} n^2 - \frac{a}{2} n + b \\
     &\in \Theta\left(n^2\right)
 \end{align*}
 
