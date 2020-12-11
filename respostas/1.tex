@@ -1,1 +1,54 @@
-~
+\subsection{b}
+
+\def\And{\mbox{ \kw{e} }}
+\def\Or{\mbox{ \kw{ou} }}
+
+\begin{codebox}
+    \Procname{$\proc{Intercalacao-PD}(X, Y, Z, n, m, I)$}
+    \li \kw{se} $I[n][m] \ne \const{NULO}$
+        \Then
+    \li     \kw{retorna} $I[n][m]$
+        \End
+    \li
+    \li \kw{se} $n \isequal 0 \And m \isequal 0$
+        \Then
+    \li     $I[0][0] \gets \const{VERDADEIRO}$
+        \End
+    \li \kw{senão, se} $n \isequal 0$
+        \Then
+    \li     $I[0][m] \gets Y[m] \isequal Z[m] \And \proc{Intercalacao-PD}(X, Y, Z, 0, m-1, I)$
+        \End
+    \li \kw{senão, se} $m \isequal 0$
+        \Then
+    \li     $I[n][0] \gets X[n] \isequal Z[n] \And \proc{Intercalacao-PD}(X, Y, Z, n-1, 0, I)$
+        \End
+    \li \kw{senão}
+        \Then
+    \li     $I[n][m] \gets \const{FALSO}$
+    \li     \kw{se} $X[n] \isequal Z[n + m]$
+            \Then
+    \li         $I[n][m] \gets I[n][m] \Or \proc{Intercalacao-PD}(X, Y, Z, n - 1, m, I)$
+            \End
+    \li     \kw{se} $Y[m] \isequal Z[n + m]$
+            \Then
+    \li         $I[n][m] \gets I[n][m] \Or \proc{Intercalacao-PD}(X, Y, Z, n, m - 1, I)$
+            \End
+        \End
+    \li
+    \li \kw{retorna} $I[n][m]$
+\end{codebox}
+
+\begin{codebox}
+    \Procname{$\proc{Intercalacao}(X, Y, Z, n, m)$}
+    \li Seja $I[0 \twodots n][0 \twodots m]$ uma matriz.
+    \li
+    \li \kw{para} $i = 0$ \kw{até} $n$
+        \Do
+    \li     \kw{para} $j = 0$ \kw{até} $m$
+            \Do
+    \li         $I[i][j] \gets \const{NULO}$
+            \End
+        \End
+    \li
+    \li \kw{retorna} $\proc{Intercalacao-PD}(X, Y, Z, n, m, I)$
+\end{codebox}
