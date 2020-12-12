@@ -1,5 +1,7 @@
 \subsection{a} \label{sec:2:a}
 
+Teorema (subestrutura ótima): um percurso $P$ de $A_{P(1)}$ até $A_n$ de custo mínimo tem um subpercurso.
+
 Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_{i < n}$ até $A_n$ e um $A_{i < k < n}$ como parte do percurso. Logo, temos o subpercurso $R \subset P$ de $A_k$ até $A_n$. Considere também o percurso $R' \ne R$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
 
 Assim, se $c\left(R'\right) < c(R)$ , então podemos formar o percurso total $P' = (P \setminus R) \cup R'$, tal que $c\left(P'\right) = c(P) - c(R) + c\left(R'\right) < c(P)$. Ou seja, $P$ não poderia ser considerado mínimo.
@@ -21,13 +23,12 @@ Nessa relação, o custo ótimo $C_i$ depende apenas dos custos $C_j$ das aldeia
 
 \begin{codebox}
     \Procname{$\proc{Custo-Mínimo}(t, n)$}
-    \li Seja $C[1 \twodots n]$ um novo vetor. \label{linha:a1:1}
+    \li Seja $C[1 \twodots n - 1]$ um novo vetor. \label{linha:a1:1}
     \li
-    \li $C[n] \gets 0$ \label{linha:a1:2}
     \li \kw{para} $i = n - 1$ descendo \kw{até} $1$ \label{linha:for:1}
         \Do
-    \li     $\id{cmin} \gets \infty$ \label{linha:a2:1}
-    \li     \kw{para} $j = i + 1$ \kw{até} $n$ \label{linha:for:2}
+    \li     $\id{cmin} \gets t[i][n]$ \label{linha:a2:1}
+    \li     \kw{para} $j = i + 1$ \kw{até} $n - 1$ \label{linha:for:2}
             \Do
     \li         $\id{custo} \gets t[i][j] + C[j]$ \label{linha:a3:1}
     \li         $\id{cmin} \gets \min\left(\id{cmin},\, \id{custo}\right)$ \label{linha:a3:2}
@@ -35,19 +36,18 @@ Nessa relação, o custo ótimo $C_i$ depende apenas dos custos $C_j$ das aldeia
     \li     $C[i] \gets \id{cmin}$ \label{linha:a2:2}
         \End
     \li
-    \li \kw{retorna} $C[1]$ \label{linha:a1:3}
+    \li \kw{retorna} $C[1]$ \label{linha:a1:2}
 \end{codebox}
 
 \itemdsep
 \subsection{c}
 
-Vamos considerar que as linhas \ref{linha:a1:1}, \ref{linha:a1:2} e \ref{linha:a1:3} executam em tempo constante $a_1$, que a \ref{linha:a2:1} e a \ref{linha:a2:2} executam em $a_2$ e que as \ref{linha:a3:1} e \ref{linha:a3:2} é em tempo $a_3$. Assim, podemos descrever o tempo de execução do algoritmo por:
-
+Vamos considerar que as linhas \ref{linha:a1:1} e \ref{linha:a1:2} executam em tempo constante $a_1$, que a \ref{linha:a2:1} e a \ref{linha:a2:2} executam em $a_2$ e que \ref{linha:a3:1} e \ref{linha:a3:2} são em tempo $a_3$. Assim, podemos descrever o tempo de execução do algoritmo por:
 \begin{align*}
-    T(n) &= a_1 + \sum_{i = 1}^{n - 1}\left(a_2 + \sum_{j = i + 1}^n a_3\right) \\
-    &= a_1 + a_2 (n - 1) + a_3 \sum_{i = 1}^{n - 1} n - a_3 \sum_{i = 1}^{n - 1} i \\
-    &= a_1 + a_2 n - a_2 + a_3 n (n - 1) - a_3 \frac{n (n - 1)}{2} \\
-    &= \frac{a_3}{2} n^2 + \frac{2 a_2 - a_3}{2} n + a_1 - a_2
+    T(n) &= a_1 + \sum_{i = 1}^{n - 1}\left(a_2 + \sum_{j = i + 1}^{n - 1} a_3\right) \\
+    &= a_1 + a_2 (n - 1) + a_3 \sum_{i = 1}^{n - 1} n - a_3 \sum_{i = 1}^{n - 1} i - a_3 \sum_{i = 1}^{n - 1} 1 \\
+    &= a_1 + a_2 n - a_2 + a_3 n (n - 1) - a_3 \frac{n (n - 1)}{2} - a_3 (n - 1) \\
+    &= \frac{a_3}{2} n^2 + \frac{2 a_2 - 3 a_3}{2} n + a_1 - a_2 + a_3
 \end{align*}
 
 Ou seja, $T(n) \in \Theta\left(n^2\right)$, como requerido. Além disso, o único espaço adicional é do vetor $C$ de tamanho $n$. Então, a complexidade de espaço pode será dada por:
