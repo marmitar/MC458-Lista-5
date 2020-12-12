@@ -4,51 +4,51 @@
 \def\Or{\mbox{ \kw{ou} }}
 
 \begin{codebox}
-    \Procname{$\proc{Intercalacao-PD}(X, Y, Z, n, m, I)$}
-    \li \kw{se} $I[n][m] \ne \const{NULO}$
+    \Procname{$\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$}
+    \li \kw{se} $I[m][n] \ne \const{NULO}$
         \Then
-    \li     \kw{retorna} $I[n][m]$
+    \li     \kw{retorna} $I[m][n]$
         \End
     \li
-    \li \kw{se} $n \isequal 0 \And m \isequal 0$
+    \li \kw{se} $m \isequal 0 \And n \isequal 0$
         \Then
     \li     $I[0][0] \gets \const{VERDADEIRO}$
         \End
-    \li \kw{senão, se} $n \isequal 0$
+    \li \kw{senão, se} $m \isequal 0$
         \Then
-    \li     $I[0][m] \gets Y[m] \isequal Z[m] \And \proc{Intercalacao-PD}(X, Y, Z, 0, m-1, I)$
+    \li     $I[0][n] \gets Y[n] \isequal Z[n] \And \proc{Intercalacao-PD}(X, 0, Y, n-1, Z, I)$
         \End
     \li \kw{senão, se} $m \isequal 0$
         \Then
-    \li     $I[n][0] \gets X[n] \isequal Z[n] \And \proc{Intercalacao-PD}(X, Y, Z, n-1, 0, I)$
+    \li     $I[m][0] \gets X[m] \isequal Z[m] \And \proc{Intercalacao-PD}(X, m-1, Y, 0, Z, I)$
         \End
     \li \kw{senão}
         \Then
-    \li     $I[n][m] \gets \const{FALSO}$
-    \li     \kw{se} $X[n] \isequal Z[n + m]$
+    \li     $I[m][n] \gets \const{FALSO}$
+    \li     \kw{se} $X[m] \isequal Z[m + n]$
             \Then
-    \li         $I[n][m] \gets I[n][m] \Or \proc{Intercalacao-PD}(X, Y, Z, n - 1, m, I)$
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
             \End
-    \li     \kw{se} $Y[m] \isequal Z[n + m]$
+    \li     \kw{se} $Y[n] \isequal Z[m + n]$
             \Then
-    \li         $I[n][m] \gets I[n][m] \Or \proc{Intercalacao-PD}(X, Y, Z, n, m - 1, I)$
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n-1, Z, I)$
             \End
         \End
     \li
-    \li \kw{retorna} $I[n][m]$
+    \li \kw{retorna} $I[m][n]$
 \end{codebox}
 
 \begin{codebox}
-    \Procname{$\proc{Intercalacao}(X, Y, Z, n, m)$}
-    \li Seja $I[0 \twodots n][0 \twodots m]$ uma matriz.
+    \Procname{$\proc{Intercalacao}(X, m, Y, n, Z)$}
+    \li Seja $I[0 \twodots m][0 \twodots n]$ uma matriz.
     \li
-    \li \kw{para} $i = 0$ \kw{até} $n$
+    \li \kw{para} $i = 0$ \kw{até} $m$
         \Do
-    \li     \kw{para} $j = 0$ \kw{até} $m$
+    \li     \kw{para} $j = 0$ \kw{até} $n$
             \Do
     \li         $I[i][j] \gets \const{NULO}$
             \End
         \End
     \li
-    \li \kw{retorna} $\proc{Intercalacao-PD}(X, Y, Z, n, m, I)$
+    \li \kw{retorna} $\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
 \end{codebox}
