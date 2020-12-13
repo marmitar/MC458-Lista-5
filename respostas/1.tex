@@ -1,4 +1,4 @@
-\subsection{a} Considere a operação ``$\oplus$'' como a concatenação de cadeias.
+\subsection{a} Considere a operação ``$\oplus$'' como a concatenação de cadeias e a notação de prefixo adotada em aula.
 
 \begin{theorem}[subestrutura ótima]
     Sejam $n$ e $m$ inteiros positivos e considere as cadeias de caracteres de $\Sigma$ sendo $X = \langle x_1, \ldots, x_m \rangle$, $Y = \langle y_1, \ldots, y_n \rangle$ e $Z = \langle z_1, \ldots, z_{m + n} \rangle$. Então, $Z$ é é uma intercalação de $X$ e $Y$, se e somente se uma das condições a seguir for atendida:
@@ -50,14 +50,16 @@ A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazi
     \end{cases}
 \end{align*}
 
-\subsection{b}
+\itemdsep
+
+\subsection{b} Considere $\const{VERDADEIRO}$ como 1, $\const{FALSO}$ como 0 e $\const{NULO}$ como uma constante diferente de 1 e de 0.
 
 \def\And{\mbox{ \kw{e} }}
 \def\Or{\mbox{ \kw{ou} }}
 
 \begin{codebox}
     \Procname{$\proc{Intercalacao}(X, m, Y, n, Z)$}
-    \li Seja $I[0 \twodots m][0 \twodots n]$ uma matriz.
+    \li Seja $I[0 \twodots m][0 \twodots n]$ uma matriz
     \li
     \li \kw{para} $i = 0$ \kw{até} $m$
         \Do
@@ -86,7 +88,7 @@ A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazi
     \li     $I[m][n] \gets \const{FALSO}$
     \li     \kw{se} $m \ne 0 \And X[m] \isequal Z[m + n]$
             \Then
-    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m - 1, Y, n, Z, I)$
             \End
     \li     \kw{se} $n \ne 0 \And Y[n] \isequal Z[m + n]$
             \Then
@@ -96,3 +98,21 @@ A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazi
     \li
     \li \kw{retorna} $I[m][n]$
 \end{codebox}
+
+\itemdsep
+\newpage
+
+\subsection{c}
+
+Podemos ver que $\proc{Intercalacao-PD}$ faz no máximo duas chamadas recursivas, independentemente dos valores de $m$ ou $n$. Além disso, devido a memorização com a matriz $I$, a segunda chamada da função com mesmos valores de $m$ e $n$ é executada em tempo constante. Também é possível notar que cada chamada com valores $m'$ e $n'$, temos que $0 \leq m' \leq m$ e $0 \leq n' \leq n$.
+
+Logo, no pior dos casos, as chamadas recursivas devem prencher todas as posições de $I$ com mais um número constante de operações. Portanto, a complexidade da função recursiva $\proc{Intercalacao-PD}$ é $O\left((m + 1) (n + 1)\right) = O(m n)$.
+
+Assim, a função $\proc{Intercalacao}$, que inicializa a tabela, tem tempo:
+\begin{align*}
+    T(m, n) &= \sum_{i = 0}^m \sum_{j = 0}^n \Theta(1) + O(m n) \\
+        &= \Theta((m + 1) (n + 1)) + O(m n) \\
+        &= \Theta(m n)
+\end{align*}
+
+Para a complexidade de espaço, podemos ver que a função recursiva usa espaço adicional. Logo, o único armazenamento usado que depende da entrada é a criação da tabela $I$, com dimensões $(m + 1) \times (n + 1)$. Portanto, $E(m, n) = \Theta(m n)$.
