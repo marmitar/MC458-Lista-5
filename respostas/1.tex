@@ -1,7 +1,7 @@
 \subsection{a} Considere a operação ``$\oplus$'' como a concatenação de cadeias e a notação de prefixo adotada em aula.
 
 \begin{theorem}[subestrutura ótima]
-    Sejam $n$ e $m$ inteiros positivos e considere as cadeias de caracteres de $\Sigma$ sendo $X = \langle x_1, \ldots, x_m \rangle$, $Y = \langle y_1, \ldots, y_n \rangle$ e $Z = \langle z_1, \ldots, z_{m + n} \rangle$. Então, $Z$ é é uma intercalação de $X$ e $Y$, se e somente se uma das condições a seguir for atendida:
+    Sejam $n$ e $m$ inteiros positivos e considere as cadeias de caracteres de $\Sigma$ sendo $X = \langle x_1, \ldots, x_m \rangle$, $Y = \langle y_1, \ldots, y_n \rangle$ e $Z = \langle z_1, \ldots, z_{m + n} \rangle$. Então, $Z$ é uma intercalação de $X$ e $Y$ se e somente se uma das condições a seguir for atendida:
 
     1. $x_m = z_{n + m}$ ~e~ $Z_{m + n - 1}$ é intercalação $X_{m - 1}$ e $Y$.
 
@@ -13,7 +13,7 @@
 
     ~
 
-    ($\rightarrow$) Suponha que $Z$ é uma intercalação de $X$ e $Y$ e . Suponha ainda que a condição 1 seja falsa. Então, temos os seguintes casos.
+    ($\rightarrow$) Considere que $Z$ é uma intercalação de $X$ e $Y$ e suponha ainda que a condição 1 seja falsa. Então, temos os seguintes casos
 
     \begin{casos}
         \item $x_m \ne z_{m + n}$. Assim, se $y_n \ne z_{m + n}$, então $Z$ não poderia ser uma intercalação de $X$ e $Y$, logo, $y_n = z_{m + n}$. Suponha agora que $Z'$ não é uma intercalação de $X$ e $Y'$, ou seja, não é possível decompor $Z'$ em subcadeias disjuntas iguais a $X$ e $Y'$.
@@ -22,29 +22,28 @@
 
         Portanto, temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$, ou seja, a condição 2 deve ser atendida.
 
-        \item $x_m = z_{m + n}$ e $Z'$ não é intercalação de $X'$ e $Y$. Suponha que $z_{m + n}$ parte da subcadeia $S$ de $Z$ que é igual a $X$. No entanto, como $Z'$ não é intercalação de $X'$ e $Y$, temos que $Z = Z' \oplus \langle z_{m + n} \rangle$ não pode ser intercalação de $X = X' \oplus \langle x_m \rangle = S$ e $Y$. Portanto, $z_{m + n}$ deve ser parte de $Y$.
+        \item $x_m = z_{m + n}$ e $Z'$ não é intercalação de $X'$ e $Y$. Suponha que $z_{m + n}$ é parte da subcadeia $S$ de $Z$ que é igual a $X$. No entanto, como $Z'$ não é intercalação de $X'$ e $Y$, temos que $Z = Z' \oplus \langle z_{m + n} \rangle$ não pode ser intercalação de $X = X' \oplus \langle x_m \rangle = S$ e $Y$. Portanto, $z_{m + n}$ deve ser parte de $Y$.
 
-        Como $z_{m + n}$ é o último elemento de $Z$, então $y_n = z_{m + n}$. Além disso, assim como no caso anterior, temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$.
+        Como $z_{m + n}$ é o último elemento de $Z$, então $y_n = z_{m + n}$. Além disso, assim como mostrado no caso anterior, como $z_{m + n}$ é parte da subcadeia igual a $Y$, então temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$.
     \end{casos}
-
-    Por fim, temos que se a condição 1 é falsa, a condição 2 deve ser verdade. Logo, para que $Z$ seja a intercalação proposta, uma das condições deve ser atendida.
 
     ~
 
-    ($\leftarrow$) Considere agora que a condição 1 é verdade. Como $Z = Z' \oplus \langle z_{m + n} \rangle$, $X' = X \oplus \langle x_m \rangle$ e $z_{m + n} = x_m$, então as operações de concatenação mantêm a propriedade intercalação. Portanto, $Z$ é uma intercalação de $X$ e $Y$.
+    Por fim, como os casos são exaustivos, temos que se a condição 1 é falsa, a condição 2 deve ser verdade. Logo, para que $Z$ seja a intercalação proposta, uma das condições deve ser atendida.
+
+    ~
+
+    ($\leftarrow$) Considere agora que a condição 1 é verdade. Como $Z = Z' \oplus \langle z_{m + n} \rangle$, $X' = X \oplus \langle x_m \rangle$ e $z_{m + n} = x_m$, então as operações de concatenação mantêm a propriedade da intercalação. Portanto, $Z$ é uma intercalação de $X$ e $Y$.
 
     A condição 2 é similar.
 \end{proof}
 
-\itemdsep
-\newpage
-
 A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazio, podemos ver que a recorrência para verificação de intercalação será dada por:
 \begin{align*}
     \varnothing &\text{ é intercalação de } \varnothing \text{ e } \varnothing \\
-    Z \text{ é intercalação de } \varnothing \text{ e } Y &\bm{\leftrightarrow} z_n = y_n \text{ \textbf{e} } Z_{n - 1} \text{ é intercalação de } \varnothing \text{ e } Y_{n - 1} \\
-    Z \text{ é intercalação de } X \text{ e } \varnothing &\bm{\leftrightarrow} z_m = x_m \text{ \textbf{e} } Z_{m - 1} \text{ é intercalação de } X_{m - 1} \text{ e } \varnothing \\
-    Z \text{ é intercalação de } X \text{ e } Y &\bm{\leftrightarrow} \begin{cases}
+    Z \text{ é intercalação de } \varnothing \text{ e } Y &~\bm{\leftrightarrow}~ z_n = y_n ~\text{ \textbf{e} }~ Z_{n - 1} \text{ é intercalação de } \varnothing \text{ e } Y_{n - 1} \\
+    Z \text{ é intercalação de } X \text{ e } \varnothing &~\bm{\leftrightarrow}~ z_m = x_m ~\text{ \textbf{e} }~ Z_{m - 1} \text{ é intercalação de } X_{m - 1} \text{ e } \varnothing \\
+    Z \text{ é intercalação de } X \text{ e } Y &~\bm{\leftrightarrow} \begin{cases}
         z_{m + n} = x_m \text{ \textbf{e} } Z_{m + n - 1} \text{ é intercalação de } X_{m - 1} \text{ e } Y &\text{, ou} \\
         z_{m + n} = y_n \text{ \textbf{e} } Z_{m + n - 1} \text{ é intercalação de } X \text{ e } Y_{n - 1}
     \end{cases}
@@ -69,11 +68,11 @@ A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazi
             \End
         \End
     \li
-    \li \kw{retorna} $\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
+    \li \kw{retorna} $\proc{Intercalacao-Rec}(X, m, Y, n, Z, I)$
 \end{codebox}
 
 \begin{codebox}
-    \Procname{$\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$}
+    \Procname{$\proc{Intercalacao-Rec}(X, m, Y, n, Z, I)$}
     \li \kw{se} $I[m][n] \ne \const{NULO}$
         \Then
     \li     \kw{retorna} $I[m][n]$
@@ -88,31 +87,31 @@ A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazi
     \li     $I[m][n] \gets \const{FALSO}$
     \li     \kw{se} $m \ne 0 \And X[m] \isequal Z[m + n]$
             \Then
-    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m - 1, Y, n, Z, I)$
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-Rec}(X, m - 1, Y, n, Z, I)$
             \End
     \li     \kw{se} $n \ne 0 \And Y[n] \isequal Z[m + n]$
             \Then
-    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n-1, Z, I)$
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-Rec}(X, m, Y, n-1, Z, I)$
             \End
         \End
     \li
     \li \kw{retorna} $I[m][n]$
 \end{codebox}
 
-\itemdsep
+% \itemdsep
 \newpage
 
 \subsection{c}
 
-Podemos ver que $\proc{Intercalacao-PD}$ faz no máximo duas chamadas recursivas, independentemente dos valores de $m$ ou $n$. Além disso, devido a memorização com a matriz $I$, a segunda chamada da função com mesmos valores de $m$ e $n$ é executada em tempo constante. Também é possível notar que cada chamada com valores $m'$ e $n'$, temos que $0 \leq m' \leq m$ e $0 \leq n' \leq n$.
+Considerando $m'$ e $n'$ as entradas das chamadas recursivas de $\proc{Intercalao-Rec}$, é fácil notar que $0 \leq m' \leq m$ e $0 \leq n' \leq n$. Além disso, cada nível da recursão faz no máximo duas novas chamadas, ou seja, não cresce com o valor de $m$ ou $n$.
 
-Logo, no pior dos casos, as chamadas recursivas devem prencher todas as posições de $I$ com mais um número constante de operações. Portanto, a complexidade da função recursiva $\proc{Intercalacao-PD}$ é $O\left((m + 1) (n + 1)\right) = O(m n)$.
+Logo, toda chamada leva tempo constante a partir do momento que a matriz $I$ de memorização está preenchida. Portanto, a complexidade da função recursiva é limitada por $O\left((m + 1) (n + 1)\right) = O(m n)$.
 
-Assim, a função $\proc{Intercalacao}$, que inicializa a tabela, tem tempo:
+Assim, a função $\proc{Intercalacao}$, que inicializa a tabela e a recursão, tem tempo:
 \begin{align*}
     T(m, n) &= \sum_{i = 0}^m \sum_{j = 0}^n \Theta(1) + O(m n) \\
         &= \Theta((m + 1) (n + 1)) + O(m n) \\
         &= \Theta(m n)
 \end{align*}
 
-Para a complexidade de espaço, podemos ver que a função recursiva usa espaço adicional. Logo, o único armazenamento usado que depende da entrada é a criação da tabela $I$, com dimensões $(m + 1) \times (n + 1)$. Portanto, $E(m, n) = \Theta(m n)$.
+Para a complexidade de espaço, podemos ver que a função recursiva usa espaço constante em cada chamada. Como as chamadas são limitadas pela tabela de memorização, então o espaço utilizado é $O(m n)$. Para a função final, a criação da tabela $I$, com dimensões $(m + 1) \times (n + 1)$, também determina a complexidade. Portanto, $E(m, n) = \Theta(m n)$.

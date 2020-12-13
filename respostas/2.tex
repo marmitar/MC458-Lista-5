@@ -5,7 +5,7 @@
 \end{theorem}
 
 \begin{proof}[\textbf{Demonstração}]
-    Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_1$ até $A_n$ e uma aldeia $A_{1 \leq k \leq n}$ como parte do percurso. Logo, temos o subpercurso $R \subseteq P$ de $A_k$ até $A_n$. Considere também o percurso $R'$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
+    Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_1$ até $A_n$ e uma aldeia $A_{1 \leq k \leq n}$ como parte do percurso. Logo, temos o subpercurso $R \subseteq P$ de $A_k$ até $A_n$. Suponha também um percurso $R'$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
 
     Assim, se $c\left(R'\right) < c(R)$ , então podemos formar o percurso total $P' = (P \setminus R) \cup R'$, tal que $c\left(P'\right) = c(P) - c(R) + c\left(R'\right) < c(P)$. Ou seja, $P$ não poderia ser considerado mínimo.
 
@@ -43,7 +43,7 @@ Nessa relação, o custo ótimo $C_i$ depende apenas dos custos $C_j$ das aldeia
     \li \kw{retorna} $C[1]$ \label{linha:a1:2}
 \end{codebox}
 
-\itemdsep
+% \itemdsep
 \subsection{c}
 
 Vamos considerar que as linhas \ref{linha:a1:1} e \ref{linha:a1:2} executam em tempo constante $a_1$, que a \ref{linha:a2:1} e a \ref{linha:a2:2} executam em $a_2$ e que \ref{linha:a3:1} e \ref{linha:a3:2} são em tempo $a_3$. Assim, podemos descrever o tempo de execução do algoritmo por:
