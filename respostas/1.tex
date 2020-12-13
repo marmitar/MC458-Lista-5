@@ -1,42 +1,59 @@
+\subsection{a} Considere a operação ``$\oplus$'' como a concatenação de cadeias.
+
+\begin{theorem}[subestrutura ótima]
+    Sejam $n$ e $m$ inteiros positivos e considere as cadeias de caracteres de $\Sigma$ sendo $X = \langle x_1, \ldots, x_m \rangle$, $Y = \langle y_1, \ldots, y_n \rangle$ e $Z = \langle z_1, \ldots, z_{m + n} \rangle$. Então, $Z$ é é uma intercalação de $X$ e $Y$, se e somente se uma das condições a seguir for atendida:
+
+    1. $x_m = z_{n + m}$ ~e~ $Z_{m + n - 1}$ é intercalação $X_{m - 1}$ e $Y$.
+
+    2. $y_n = z_{n + m}$ ~e~ $Z_{m + n - 1}$ é intercalação $X$ e $Y_{n - 1}$.
+\end{theorem}
+
+\begin{proof}[\textbf{Demonstração}]
+    Considere $Z' = Z_{m + n - 1}$, $X' = X_{m - 1}$ e $Y' = Y_{n - 1}$.
+
+    ~
+
+    ($\rightarrow$) Suponha que $Z$ é uma intercalação de $X$ e $Y$ e . Suponha ainda que a condição 1 seja falsa. Então, temos os seguintes casos.
+
+    \begin{casos}
+        \item $x_m \ne z_{m + n}$. Assim, se $y_n \ne z_{m + n}$, então $Z$ não poderia ser uma intercalação de $X$ e $Y$, logo, $y_n = z_{m + n}$. Suponha agora que $Z'$ não é uma intercalação de $X$ e $Y'$, ou seja, não é possível decompor $Z'$ em subcadeias disjuntas iguais a $X$ e $Y'$.
+
+        Para que exista uma subcadeia $S$ de $Z = Z' \oplus \langle z_{m + n} \rangle$ tal que $S = Y' \oplus \langle y_n \rangle = Y$, temos que $z_{m + n}$ deverá ser parte de $S$. Se $X$ não é subcadeia de $Z'$, como $z_{m + n}$ seria parte da subcadeia igual $Y$, então $X$ também não seria subcadeia de $Z$. Por outro lado, se $Y'$ não é subcadeia de $Z'$, então $Y = Y' \oplus \langle y_n \rangle$ também não poderá ser subcadeia de $Z$.
+
+        Portanto, temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$, ou seja, a condição 2 deve ser atendida.
+
+        \item $x_m = z_{m + n}$ e $Z'$ não é intercalação de $X'$ e $Y$. Suponha que $z_{m + n}$ parte da subcadeia $S$ de $Z$ que é igual a $X$. No entanto, como $Z'$ não é intercalação de $X'$ e $Y$, temos que $Z = Z' \oplus \langle z_{m + n} \rangle$ não pode ser intercalação de $X = X' \oplus \langle x_m \rangle = S$ e $Y$. Portanto, $z_{m + n}$ deve ser parte de $Y$.
+
+        Como $z_{m + n}$ é o último elemento de $Z$, então $y_n = z_{m + n}$. Além disso, assim como no caso anterior, temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$.
+    \end{casos}
+
+    Por fim, temos que se a condição 1 é falsa, a condição 2 deve ser verdade. Logo, para que $Z$ seja a intercalação proposta, uma das condições deve ser atendida.
+
+    ~
+
+    ($\leftarrow$) Considere agora que a condição 1 é verdade. Como $Z = Z' \oplus \langle z_{m + n} \rangle$, $X' = X \oplus \langle x_m \rangle$ e $z_{m + n} = x_m$, então as operações de concatenação mantêm a propriedade intercalação. Portanto, $Z$ é uma intercalação de $X$ e $Y$.
+
+    A condição 2 é similar.
+\end{proof}
+
+\itemdsep
+\newpage
+
+A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazio, podemos ver que a recorrência para verificação de intercalação será dada por:
+\begin{align*}
+    \varnothing &\text{ é intercalação de } \varnothing \text{ e } \varnothing \\
+    Z \text{ é intercalação de } \varnothing \text{ e } Y &\bm{\leftrightarrow} z_n = y_n \text{ \textbf{e} } Z_{n - 1} \text{ é intercalação de } \varnothing \text{ e } Y_{n - 1} \\
+    Z \text{ é intercalação de } X \text{ e } \varnothing &\bm{\leftrightarrow} z_m = x_m \text{ \textbf{e} } Z_{m - 1} \text{ é intercalação de } X_{m - 1} \text{ e } \varnothing \\
+    Z \text{ é intercalação de } X \text{ e } Y &\bm{\leftrightarrow} \begin{cases}
+        z_{m + n} = x_m \text{ \textbf{e} } Z_{m + n - 1} \text{ é intercalação de } X_{m - 1} \text{ e } Y &\text{, ou} \\
+        z_{m + n} = y_n \text{ \textbf{e} } Z_{m + n - 1} \text{ é intercalação de } X \text{ e } Y_{n - 1}
+    \end{cases}
+\end{align*}
+
 \subsection{b}
 
 \def\And{\mbox{ \kw{e} }}
 \def\Or{\mbox{ \kw{ou} }}
-
-\begin{codebox}
-    \Procname{$\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$}
-    \li \kw{se} $I[m][n] \ne \const{NULO}$
-        \Then
-    \li     \kw{retorna} $I[m][n]$
-        \End
-    \li
-    \li \kw{se} $m \isequal 0 \And n \isequal 0$
-        \Then
-    \li     $I[0][0] \gets \const{VERDADEIRO}$
-        \End
-    \li \kw{senão, se} $m \isequal 0$
-        \Then
-    \li     $I[0][n] \gets Y[n] \isequal Z[n] \And \proc{Intercalacao-PD}(X, 0, Y, n-1, Z, I)$
-        \End
-    \li \kw{senão, se} $m \isequal 0$
-        \Then
-    \li     $I[m][0] \gets X[m] \isequal Z[m] \And \proc{Intercalacao-PD}(X, m-1, Y, 0, Z, I)$
-        \End
-    \li \kw{senão}
-        \Then
-    \li     $I[m][n] \gets \const{FALSO}$
-    \li     \kw{se} $X[m] \isequal Z[m + n]$
-            \Then
-    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
-            \End
-    \li     \kw{se} $Y[n] \isequal Z[m + n]$
-            \Then
-    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n-1, Z, I)$
-            \End
-        \End
-    \li
-    \li \kw{retorna} $I[m][n]$
-\end{codebox}
 
 \begin{codebox}
     \Procname{$\proc{Intercalacao}(X, m, Y, n, Z)$}
@@ -51,4 +68,31 @@
         \End
     \li
     \li \kw{retorna} $\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
+\end{codebox}
+
+\begin{codebox}
+    \Procname{$\proc{Intercalacao-PD}(X, m, Y, n, Z, I)$}
+    \li \kw{se} $I[m][n] \ne \const{NULO}$
+        \Then
+    \li     \kw{retorna} $I[m][n]$
+        \End
+    \li
+    \li \kw{se} $m \isequal 0 \And n \isequal 0$
+        \Then
+    \li     $I[0][0] \gets \const{VERDADEIRO}$
+        \End
+    \li \kw{senão}
+        \Then
+    \li     $I[m][n] \gets \const{FALSO}$
+    \li     \kw{se} $m \ne 0 \And X[m] \isequal Z[m + n]$
+            \Then
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n, Z, I)$
+            \End
+    \li     \kw{se} $n \ne 0 \And Y[n] \isequal Z[m + n]$
+            \Then
+    \li         $I[m][n] \gets I[m][n] \Or \proc{Intercalacao-PD}(X, m, Y, n-1, Z, I)$
+            \End
+        \End
+    \li
+    \li \kw{retorna} $I[m][n]$
 \end{codebox}
