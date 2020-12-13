@@ -1,9 +1,9 @@
-\subsection{a} Considere a operação ``$\oplus$'' como a concatenação de cadeias e a notação de prefixo adotada em aula.
+\subsection{a} Considere a operação ``$\oplus$'' como a concatenação de cadeias e ``$X_i$'' como a notação de prefixo adotada em aula.
 
 \begin{theorem}[subestrutura ótima]
-    Sejam $n$ e $m$ inteiros positivos e considere as cadeias de caracteres de $\Sigma$ sendo $X = \langle x_1, \ldots, x_m \rangle$, $Y = \langle y_1, \ldots, y_n \rangle$ e $Z = \langle z_1, \ldots, z_{m + n} \rangle$. Então, $Z$ é uma intercalação de $X$ e $Y$ se e somente se uma das condições a seguir for atendida:
+    Sejam $n$ e $m$ inteiros positivos e considere $X = \langle x_1, \ldots, x_m \rangle$, $Y = \langle y_1, \ldots, y_n \rangle$ e $Z = \langle z_1, \ldots, z_{m + n} \rangle$ como cadeias de caracteres de $\Sigma$. Então, $Z$ é uma intercalação de $X$ e $Y$ se e somente se pelo menos uma das condições a seguir for atendida:
 
-    1. $x_m = z_{n + m}$ ~e~ $Z_{m + n - 1}$ é intercalação $X_{m - 1}$ e $Y$.
+    1. $x_m = z_{n + m}$ ~e~ $Z_{m + n - 1}$ é intercalação $X_{m - 1}$ e $Y$;
 
     2. $y_n = z_{n + m}$ ~e~ $Z_{m + n - 1}$ é intercalação $X$ e $Y_{n - 1}$.
 \end{theorem}
@@ -13,18 +13,18 @@
 
     ~
 
-    ($\rightarrow$) Considere que $Z$ é uma intercalação de $X$ e $Y$ e suponha ainda que a condição 1 seja falsa. Então, temos os seguintes casos
+    ($\rightarrow$) Suponha que $Z$ é uma intercalação de $X$ e $Y$ e que a condição 1 não foi atendida. Então temos os seguintes casos:
 
     \begin{casos}
         \item $x_m \ne z_{m + n}$. Assim, se $y_n \ne z_{m + n}$, então $Z$ não poderia ser uma intercalação de $X$ e $Y$, logo, $y_n = z_{m + n}$. Suponha agora que $Z'$ não é uma intercalação de $X$ e $Y'$, ou seja, não é possível decompor $Z'$ em subcadeias disjuntas iguais a $X$ e $Y'$.
 
-        Para que exista uma subcadeia $S$ de $Z = Z' \oplus \langle z_{m + n} \rangle$ tal que $S = Y' \oplus \langle y_n \rangle = Y$, temos que $z_{m + n}$ deverá ser parte de $S$. Se $X$ não é subcadeia de $Z'$, como $z_{m + n}$ seria parte da subcadeia igual $Y$, então $X$ também não seria subcadeia de $Z$. Por outro lado, se $Y'$ não é subcadeia de $Z'$, então $Y = Y' \oplus \langle y_n \rangle$ também não poderá ser subcadeia de $Z$.
+        Para que exista uma subcadeia $S$ de $Z = Z' \oplus \langle z_{m + n} \rangle$ tal que $S = Y' \oplus \langle y_n \rangle = Y$, temos que $z_{m + n}$ deverá ser parte de $S$. Se $X$ não é subcadeia de $Z'$, como $z_{m + n}$ seria parte da subcadeia igual a $Y$, então $X$ também não seria subcadeia de $Z$. Por outro lado, se $Y'$ não é subcadeia de $Z'$, então $Y = Y' \oplus \langle y_n \rangle$ também não poderá ser subcadeia de $Z$.
 
         Portanto, temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$, ou seja, a condição 2 deve ser atendida.
 
         \item $x_m = z_{m + n}$ e $Z'$ não é intercalação de $X'$ e $Y$. Suponha que $z_{m + n}$ é parte da subcadeia $S$ de $Z$ que é igual a $X$. No entanto, como $Z'$ não é intercalação de $X'$ e $Y$, temos que $Z = Z' \oplus \langle z_{m + n} \rangle$ não pode ser intercalação de $X = X' \oplus \langle x_m \rangle = S$ e $Y$. Portanto, $z_{m + n}$ deve ser parte de $Y$.
 
-        Como $z_{m + n}$ é o último elemento de $Z$, então $y_n = z_{m + n}$. Além disso, assim como mostrado no caso anterior, como $z_{m + n}$ é parte da subcadeia igual a $Y$, então temos que $Z'$ deve ser uma intercalação de $X$ e $Y'$.
+        Como $z_{m + n}$ é o último elemento de $Z$, então $y_n = z_{m + n}$. Além disso, assim como no caso anterior, temos que $z_{m + n}$ é parte da subcadeia igual a $Y$, então $Z'$ deve ser uma intercalação de $X$ e $Y'$.
     \end{casos}
 
     ~
@@ -33,12 +33,12 @@
 
     ~
 
-    ($\leftarrow$) Considere agora que a condição 1 é verdade. Como $Z = Z' \oplus \langle z_{m + n} \rangle$, $X' = X \oplus \langle x_m \rangle$ e $z_{m + n} = x_m$, então as operações de concatenação mantêm a propriedade da intercalação. Portanto, $Z$ é uma intercalação de $X$ e $Y$.
+    ($\leftarrow$) Considere agora que a condição 1 é verdade. Como $Z = Z' \oplus \langle z_{m + n} \rangle$, $X = X' \oplus \langle x_m \rangle$ e $z_{m + n} = x_m$, então as operações de concatenação mantêm a propriedade da intercalação, nesse caso. Portanto, $Z$ é uma intercalação de $X$ e $Y$.
 
-    A condição 2 é similar.
+    A demonstração a partir da condição 2 é similar.
 \end{proof}
 
-A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazio, podemos ver que a recorrência para verificação de intercalação será dada por:
+Além do caso geral discutido acima, é possível que $X$ ou $Y$ seja vazia ($\varnothing$), isto é, $m = 0$ ou $n = 0$. O caso base acontece quando ambas são vazias. A partir da subestrutura ótima e dos casos com cadeias vazias, podemos ver que a recorrência para verificação de intercalação será dada por:
 \begin{align*}
     \varnothing &\text{ é intercalação de } \varnothing \text{ e } \varnothing \\
     Z \text{ é intercalação de } \varnothing \text{ e } Y &~\bm{\leftrightarrow}~ z_n = y_n ~\text{ \textbf{e} }~ Z_{n - 1} \text{ é intercalação de } \varnothing \text{ e } Y_{n - 1} \\
@@ -103,15 +103,15 @@ A partir da demonstração acima e considerando os casos onde $X$ ou $Y$ é vazi
 
 \subsection{c}
 
-Considerando $m'$ e $n'$ as entradas das chamadas recursivas de $\proc{Intercalao-Rec}$, é fácil notar que $0 \leq m' \leq m$ e $0 \leq n' \leq n$. Além disso, cada nível da recursão faz no máximo duas novas chamadas, ou seja, não cresce com o valor de $m$ ou $n$.
+Considerando $m'$ e $n'$ as entradas das chamadas recursivas de $\proc{Intercalao-Rec}$, é possível notar que $0 \leq m' \leq m$ e $0 \leq n' \leq n$. Além disso, cada nível da recursão faz no máximo duas novas chamadas, ou seja, o número de chamadas não cresce com o valor de $m$ ou $n$.
 
-Logo, toda chamada leva tempo constante a partir do momento que a matriz $I$ de memorização está preenchida. Portanto, a complexidade da função recursiva é limitada por $O\left((m + 1) (n + 1)\right) = O(m n)$.
+Assim, a partir do momento que a matriz de memorização $I$ está preenchida, qualquer chamada leva tempo constante. Portanto, a complexidade da função recursiva é limitada pelo tamanho da matriz, ou seja, é $O\left((m + 1) (n + 1)\right) = O(m n)$.
 
-Assim, a função $\proc{Intercalacao}$, que inicializa a tabela e a recursão, tem tempo:
+Então, a função $\proc{Intercalacao}$, que inicializa a tabela e a recursão, tem tempo:
 \begin{align*}
     T(m, n) &= \sum_{i = 0}^m \sum_{j = 0}^n \Theta(1) + O(m n) \\
         &= \Theta((m + 1) (n + 1)) + O(m n) \\
         &= \Theta(m n)
 \end{align*}
 
-Para a complexidade de espaço, podemos ver que a função recursiva usa espaço constante em cada chamada. Como as chamadas são limitadas pela tabela de memorização, então o espaço utilizado é $O(m n)$. Para a função final, a criação da tabela $I$, com dimensões $(m + 1) \times (n + 1)$, também determina a complexidade. Portanto, $E(m, n) = \Theta(m n)$.
+Para a complexidade de espaço, podemos ver que a função recursiva usa espaço constante em cada chamada. Como as chamadas são limitadas pelo tamanho da tabela de memorização, então o espaço utilizado é $O(m n)$. Para a função final, a criação da tabela $I$, com dimensões $(m + 1) \times (n + 1)$, também determina a complexidade. Portanto, $E(m, n) = \Theta(m n)$.
