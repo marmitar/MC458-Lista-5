@@ -1,10 +1,16 @@
 \subsection{a} \label{sec:2:a}
 
-Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_{i < n}$ até $A_n$ e um $A_{i < k < n}$ como parte do percurso. Logo, temos o subpercurso $R \subset P$ de $A_k$ até $A_n$. Considere também o percurso $R'$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
+\begin{theorem}[subestrutura ótima]
+    Seja $P$ um percurso da aldeia $A_1$ até $A_n$ com custo mínimo. Então, todo subpercurso $R \subseteq P$ que termina em $A_n$ também é mínimo.
+\end{theorem}
 
-Assim, se $c\left(R'\right) < c(R)$ , então podemos formar o percurso total $P' = (P \setminus R) \cup R'$, tal que $c\left(P'\right) = c(P) - c(R) + c\left(R'\right) < c(P)$. Ou seja, $P$ não poderia ser considerado mínimo.
+\begin{proof}[\textbf{Demonstração}]
+    Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_1$ até $A_n$ e uma aldeia $A_{1 \leq k \leq n}$ como parte do percurso. Logo, temos o subpercurso $R \subseteq P$ de $A_k$ até $A_n$. Considere também o percurso $R'$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
 
-Logo, $c(R) \leq c\left(R'\right)$, ou seja, $R$ deve ser mínimo. Além disso, como $A_k$ era arbitrário, todo subpercurso de $P$ também deve ser mínimo.
+    Assim, se $c\left(R'\right) < c(R)$ , então podemos formar o percurso total $P' = (P \setminus R) \cup R'$, tal que $c\left(P'\right) = c(P) - c(R) + c\left(R'\right) < c(P)$. Ou seja, $P$ não poderia ser considerado mínimo.
+
+    Logo, $c(R) \leq c\left(R'\right)$, isto é, $R$ deve ser mínimo. Além disso, como $A_k$ era arbitrário, todo subpercurso de $P$ também deve ter custo mínimo.
+\end{proof}
 
 ~
 
