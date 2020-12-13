@@ -1,8 +1,6 @@
 \subsection{a} \label{sec:2:a}
 
-Teorema (subestrutura ótima): um percurso $P$ de $A_{P(1)}$ até $A_n$ de custo mínimo tem um subpercurso.
-
-Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_{i < n}$ até $A_n$ e um $A_{i < k < n}$ como parte do percurso. Logo, temos o subpercurso $R \subset P$ de $A_k$ até $A_n$. Considere também o percurso $R' \ne R$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
+Suponha um percurso $P$ com custo $c(P)$ mínimo de $A_{i < n}$ até $A_n$ e um $A_{i < k < n}$ como parte do percurso. Logo, temos o subpercurso $R \subset P$ de $A_k$ até $A_n$. Considere também o percurso $R'$ de $A_k$ a $A_n$ com custo $c\left(R'\right)$ mínimo.
 
 Assim, se $c\left(R'\right) < c(R)$ , então podemos formar o percurso total $P' = (P \setminus R) \cup R'$, tal que $c\left(P'\right) = c(P) - c(R) + c\left(R'\right) < c(P)$. Ou seja, $P$ não poderia ser considerado mínimo.
 
@@ -10,13 +8,13 @@ Logo, $c(R) \leq c\left(R'\right)$, ou seja, $R$ deve ser mínimo. Além disso, 
 
 ~
 
-Considere que $C_i$ é o menor custo de um percurso da aldeia $A_i$ para a $A_n$, sendo $1 \leq i \leq n$. Como os subpercursos são ótimos, podemos considerar todas as possíveis paradas $A_{i < j \leq n}$ com seus percursos ótimos, tomando o menor deles como parte do percurso ótimo de $A_i$. Note se $i = n$, então não resta nenhuma aldeia no percurso, ou seja, $C_i = 0$. Assim,
+Considere que $C_i$ é o menor custo de um percurso da aldeia $A_i$ para a $A_n$, sendo $1 \leq i < n$. Como os subpercursos são ótimos, podemos considerar todas as possíveis paradas $A_{i < j \leq n}$ com seus percursos ótimos, tomando o menor deles como parte do percurso ótimo de $A_i$. Note que se $i = n$, então não resta nenhuma aldeia no percurso, ou seja, $C_i = 0$. Assim,
 \begin{align*}
     C_i &= \min_{i < j \leq n}\left\{t_{i, j} + C_j\right\} \\
     C_n &= 0
 \end{align*}
 
-Nessa relação, o custo ótimo $C_i$ depende apenas dos custos $C_j$ das aldeias seguintes, com $i < j$, já que $t_{i, j} > 0$. Assim, podemos calcular os custo a partir da última aldeia $A_n$, sem necessidade de recursão ou memprização.
+Nessa relação, o custo ótimo $C_i$ depende apenas dos custos $C_j$ das aldeias seguintes, com $i < j$, já que $t_{i, j} > 0$ e não é possível alugar uma canoa de $A_{j > i}$ para $A_i$. Assim, podemos calcular os custo a partir da última aldeia $A_n$, sem necessidade de recursão ou memorização.
 
 \itemdsep
 \subsection{b}
@@ -50,7 +48,7 @@ Vamos considerar que as linhas \ref{linha:a1:1} e \ref{linha:a1:2} executam em t
     &= \frac{a_3}{2} n^2 + \frac{2 a_2 - 3 a_3}{2} n + a_1 - a_2 + a_3
 \end{align*}
 
-Ou seja, $T(n) \in \Theta\left(n^2\right)$, como requerido. Além disso, o único espaço adicional é do vetor $C$ de tamanho $n$. Então, a complexidade de espaço pode será dada por:
+Ou seja, $T(n) \in \Theta\left(n^2\right)$, como requerido. Além disso, o único espaço adicional é do vetor $C$ de tamanho $n - 1$. Então, a complexidade de espaço será dada por:
 \begin{align*}
-    E(n) &= n + \Theta(1) = \Theta(n)
+    E(n) &= n - 1 + \Theta(1) = \Theta(n)
 \end{align*}
